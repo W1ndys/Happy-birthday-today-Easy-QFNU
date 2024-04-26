@@ -31,7 +31,7 @@ jobs:
       id: check_birthdays
       run: |
         birthday_names=$(python birthday_checker.py)
-        echo "::set-output name=birthday_names::$birthday_names"
+        echo "birthday_names=$birthday_names" >> $GITHUB_OUTPUT
         
     - name: Commit changes
       if: steps.check_birthdays.outputs.birthday_names != ''
