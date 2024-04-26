@@ -3,6 +3,12 @@ name: Birthday Checker
 on:
   schedule:
     - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Print debug information'
+        required: false
+        default: 'false'
 
 jobs:
   birthday_checker:
