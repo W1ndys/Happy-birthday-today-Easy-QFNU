@@ -1,0 +1,36 @@
+name: Birthday Checker
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  birthday_checker:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install PyYAML
+        
+    - name: Check birthdays
+      id: check_birthdays
+      run: |
+        birthday_names=$(python birthday_checker.py)
+        echo "::set-output name=birthday_names::$birthday_names"
+        
+    - name: Commit changes
+      if: steps.check_birthdays.outputs.birthday_names != ''
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git commit -am "Automatic update: ${{ steps.check_birthdays.outputs.birthday_names }}"
+        git push
