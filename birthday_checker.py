@@ -7,7 +7,7 @@ with open('birthdays.yml', 'r') as file:
 
 # 检查是否有人今天过生日
 today = date.today()
-birthday_people = [person['name'] for person in birthdays if person['birthday'].endswith(f"{today.month:02d}-{today.day:02d}")]
+birthday_people = [person['name'] for person in birthdays if date.fromisoformat(person['birthday']) == today]
 
 # 如果有人过生日,则输出他们的姓名,以逗号分隔
 if birthday_people:
