@@ -1,12 +1,6 @@
-name: Update Birthday List
-
-on:
-  schedule:
-    - cron: "0 0 * * *" # 每天午夜执行
-  workflow_dispatch: # 手动触发执行
-
 jobs:
-  update_index:
+  run_script:
+    name: Run Auto Birthday Script
     runs-on: ubuntu-latest
 
     steps:
@@ -16,10 +10,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x # 指定 Python 版本
+          python-version: '3.x'
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run Python Script
         run: python update_index.py
