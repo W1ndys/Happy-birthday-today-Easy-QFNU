@@ -16,10 +16,11 @@ for person in birthdays_data:
     if person["birthday"] == today:
         today_birthdays.append(person["name"])
 
-# 输出今日过生日的人的名字
-if today_birthdays:
-    print("今日过生日的人:")
-    for name in today_birthdays:
-        print(name)
-else:
-    print("今天没有人过生日。")
+# 输出今日过生日的人的名字到 birthdays.md
+with open("birthdays.md", "w") as file:
+    if today_birthdays:
+        file.write("今日过生日的人:\n")
+        for name in today_birthdays:
+            file.write("- " + name + "\n")
+    else:
+        file.write("今天没有人过生日。\n")

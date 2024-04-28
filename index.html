@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>生日快乐</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Checker</title>
 </head>
 <body>
-  <h1>今天过生日的人:</h1>
-  <div id="birthday-names"></div>
+    <h1>今日过生日的人：</h1>
+    <div id="birthdayList"></div>
 
-  <script>
-    fetch('https://api.github.com/repos/W1ndys/Auto-Birthday/commits')
-      .then(response => response.json())
-      .then(data => {
-        const latestCommit = data[0];
-        const commitMessage = latestCommit.commit.message;
-        const birthdayNames = commitMessage.replace('Automatic update: ', '');
-        const birthdayNamesDiv = document.getElementById('birthday-names');
-        birthdayNamesDiv.textContent = birthdayNames || '今天没有人过生日';
-      })
-      .catch(error => {
-        console.error('Error fetching commit data:', error);
-      });
-  </script>
+    <script>
+        fetch('birthdays.md')
+            .then(response => response.text())
+            .then(text => {
+                const birthdayList = document.getElementById('birthdayList');
+                birthdayList.innerHTML = text;
+            })
+            .catch(error => console.error('Error fetching markdown:', error));
+    </script>
 </body>
 </html>
