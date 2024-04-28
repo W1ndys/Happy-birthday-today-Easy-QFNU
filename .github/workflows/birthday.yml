@@ -3,6 +3,7 @@ name: Birthday Checker
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:  # 手动触发执行
 
 jobs:
   check_birthday:
@@ -23,6 +24,7 @@ jobs:
         run: python birthday_checker.py
 
       - name: Commit and push changes
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.run_daily == 'true'  # 仅当手动执行或定时执行时提交更改
         run: |
           git config --global user.name 'Github Actions Bot'
           git config --global user.email 'actions@users.noreply.github.com'
