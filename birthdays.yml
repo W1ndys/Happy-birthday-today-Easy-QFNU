@@ -1,8 +1,14 @@
 - name: John Doe
   birthday: "1990-05-15"
+
 - name: Jane Smith
   birthday: "1985-08-22"
+
 - name: Bob Johnson
-  birthday: "1992-12-01"
+  birthday: "1992-04-28"
+
 - name: w1ndys
-  birthday: "2004-04-27"
+  birthday: "2004-04-28"
+
+- name: Amy Lee
+  birthday: "2004-04-28"
