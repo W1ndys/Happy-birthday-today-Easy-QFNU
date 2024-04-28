@@ -1,14 +1,25 @@
 import yaml
-from datetime import date
+from datetime import datetime
 
-# 读取 birthdays.yml 文件
-with open('birthdays.yml', 'r') as file:
-    birthdays = yaml.safe_load(file)
+# 加载 birthdays.yml 文件
+with open("birthdays.yml", "r") as file:
+    birthdays_data = yaml.safe_load(file)
 
-# 检查是否有人今天过生日
-today = date.today()
-birthday_people = [person['name'] for person in birthdays if date.fromisoformat(person['birthday']) == today]
+# 获取今天的日期
+today = datetime.now().strftime("%Y-%m-%d")
 
-# 如果有人过生日,则输出他们的姓名,以逗号分隔
-if birthday_people:
-    print(','.join(birthday_people))
+# 保存今日过生日的人的名字
+today_birthdays = []
+
+# 检查每个人的生日是否是今天
+for person in birthdays_data:
+    if person["birthday"] == today:
+        today_birthdays.append(person["name"])
+
+# 输出今日过生日的人的名字
+if today_birthdays:
+    print("今日过生日的人:")
+    for name in today_birthdays:
+        print(name)
+else:
+    print("今天没有人过生日。")
