@@ -4,23 +4,41 @@ on:
   schedule:
     - cron: "0 0 * * *" # 每天午夜执行
   workflow_dispatch: # 手动触发执行
-
+      
+permissions:
+  contents: write
+  
 jobs:
-  run_script:
-    name: Run Auto Birthday Script
+
+  get-last-commit:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      # with:
+      #   repository: W1ndys/Easy-QFNU
+        
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+        
+#    - name: Install dependencies
+  #    run: python -m pip install requests
+      
+    - name: Get last commit
+      run: python update.py
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run Python Script
-        run: python update_index.py
+    - name: Check for changes
+      id: check_changes
+      run: |
+        git add .
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "CHANGES=true" >> $GITHUB_ENV
+        fi
+          
+    - name: Commit and push changes
+      if: env.CHANGES == 'true'
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Automatically update
