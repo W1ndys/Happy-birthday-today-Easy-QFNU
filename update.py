@@ -2,7 +2,7 @@ import yaml
 from datetime import datetime
 
 # Load the YAML data
-with open('data.yml', 'r') as file:
+with open('birthdays.yml', 'r') as file:
     data = yaml.safe_load(file)
 
 # Get current date
