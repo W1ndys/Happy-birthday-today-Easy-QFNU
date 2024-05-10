@@ -1,20 +1,20 @@
-from datetime import datetime
-import pytz
 from lunardate import LunarDate
+from datetime import datetime
 
-# 设置时区为东八区
-timezone = pytz.timezone('Asia/Shanghai')
+def get_current_lunar_month_day(year, month, day):
+    current_lunar_date = LunarDate.fromSolarDate(year, month, day)
+    return f"{current_lunar_date.month:02d}-{current_lunar_date.day:02d}"
 
-# 获取当前日期时间（东八区时间）
-current_datetime = datetime.now(timezone)
+# 获取当前日期
+current_datetime = datetime.now()
 
-# 获取公历日期
-current_date = current_datetime.strftime("%Y-%m-%d")
+# 获取当前公历日期
+current_solar_date = current_datetime.strftime("%Y-%m-%d")
 
-# 获取农历日期
-current_lunar_date = LunarDate.fromSolarDate(current_datetime.year, current_datetime.month, current_datetime.day)
-current_lunar_date_str = str(current_lunar_date)
+# 获取当前农历日期
+current_lunar_month_day = get_current_lunar_month_day(current_datetime.year, current_datetime.month, current_datetime.day)
 
-# 打印今日日期
-print("今日公历日期：", current_date)
-print("今日农历日期：", current_lunar_date_str)
+# 打印公历和农历日期
+print(f"————————————————————农历公历输出工具————————————————————————")
+print(f"当前公历日期为：{current_solar_date}")
+print(f"当前农历日期为：{current_lunar_month_day}")
