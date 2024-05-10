@@ -6,6 +6,9 @@ from lunardate import LunarDate
 # 设置时区为东八区
 timezone = pytz.timezone('Asia/Shanghai')
 
+def get_lunar_date(year, month, day):
+    return LunarDate.fromSolarDate(year, month, day)
+
 # 加载 YAML 数据
 with open('birthdays.yml', 'r') as file:
     data = yaml.safe_load(file)
@@ -13,12 +16,17 @@ with open('birthdays.yml', 'r') as file:
 # 获取当前日期时间（东八区时间）
 current_datetime = datetime.now(timezone)
 
-# 获取当前日期（东八区日期）
-current_lunar_date = LunarDate.fromSolarDate(current_datetime.year, current_datetime.month, current_datetime.day)
-current_lunar_month_day = f"{current_lunar_date.month:02d}-{current_lunar_date.day:02d}"
+# 获取当前农历日期
+current_lunar_date = get_lunar_date(current_datetime.year, current_datetime.month, current_datetime.day)
+current_lunar_date_str = current_lunar_date.strftime("%Y-%m-%d")
 
 # 查找生日与当前日期匹配的姓名
-matching_names = [entry['name'] for entry in data if LunarDate.fromSolarDate(current_datetime.year, *map(int, entry['birthday'].split('-')[1:])) == current_lunar_date]
+matching_names = []
+for entry in data:
+    birthday_year, birthday_month, birthday_day = map(int, entry['birthday'].split('-'))
+    lunar_birthday = get_lunar_date(birthday_year, birthday_month, birthday_day)
+    if lunar_birthday == current_lunar_date:
+        matching_names.append(entry['name'])
 
 # 将匹配的姓名写入 index.html
 with open('index.html', 'w') as file:
@@ -83,4 +91,4 @@ with open('happy-birthday.html', 'w') as file:
 # 打印当前日期时间（东八区时间）
 print("当前日期时间：", current_datetime.strftime("%Y-%m-%d %H:%M:%S %Z%z"))
 # 打印当前农历日期
-print("当前农历日期：", current_lunar_month_day)
+print("当前农历日期：", current_lunar_date_str)
