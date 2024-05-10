@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "0 17 * * *" # UTC时间17＝东八区1点
   workflow_dispatch: # 手动触发执行
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
