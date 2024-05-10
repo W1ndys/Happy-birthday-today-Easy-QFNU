@@ -13,7 +13,7 @@ current_date = current_datetime.strftime("%Y-%m-%d")
 
 # 获取农历日期
 current_lunar_date = LunarDate.fromSolarDate(current_datetime.year, current_datetime.month, current_datetime.day)
-current_lunar_date_str = current_lunar_date.strftime("%Y-%m-%d (农历 %Y年%m月%d日)")
+current_lunar_date_str = str(current_lunar_date)
 
 # 打印今日日期
 print("今日公历日期：", current_date)
