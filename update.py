@@ -1,6 +1,5 @@
 import yaml
 from datetime import datetime
-import datetime
 
 # 加载 YAML 数据
 with open('birthdays.yml', 'r') as file:
