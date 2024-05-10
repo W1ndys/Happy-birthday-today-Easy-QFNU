@@ -1,42 +1,54 @@
-import yaml
-from datetime import datetime
-import pytz
 from lunardate import LunarDate
+import datetime
+import yaml
+import pytz
+
+# 读取生日信息
+with open("birthdays.yml", "r", encoding="utf-8") as file:
+    birthdays = yaml.safe_load(file)
+
+print("读取生日信息成功！\n")
+
 
 # 设置时区为东八区
-timezone = pytz.timezone('Asia/Shanghai')
+tz = pytz.timezone("Asia/Shanghai")
+today = datetime.datetime.now(tz)
 
-def get_current_lunar_month_day(year, month, day):
-    current_lunar_date = LunarDate.fromSolarDate(year, month, day)
-    return f"{current_lunar_date.month:02d}-{current_lunar_date.day:02d}"
+print("当前时间为：" + str(today) + "\n")
 
-# 加载 YAML 数据
-with open('birthdays.yml', 'r') as file:
-    data = yaml.safe_load(file)
+# 转换今日日期为农历
+lunar_today = LunarDate.fromSolarDate(today.year, today.month, today.day)
 
-# 获取当前日期时间（东八区时间）
-current_datetime = datetime.now(timezone)
+print("农历日期为：" + str(lunar_today) + "\n")
 
-# 获取当前农历日期
-current_lunar_month_day = get_current_lunar_month_day(current_datetime.year, current_datetime.month, current_datetime.day)
-
-# 查找生日与当前日期匹配的姓名
+# 找出今天过生日的人
 matching_names = []
-for entry in data:
-    birthday_year, birthday_month, birthday_day = map(int, entry['birthday'].split('-'))
-    lunar_birthday = LunarDate.fromSolarDate(birthday_year, birthday_month, birthday_day)
-    if lunar_birthday == LunarDate.fromSolarDate(current_datetime.year, current_datetime.month, current_datetime.day):
-        matching_names.append(entry['name'])
+for person in birthdays:
+    birthday = datetime.datetime.strptime(person["birthday"], "%Y-%m-%d")
+    # 转换生日为农历
+    lunar_birthday = LunarDate.fromSolarDate(
+        birthday.year, birthday.month, birthday.day
+    )
+    # 检查是否与今天农历日期匹配
+    if (
+        lunar_birthday.month == lunar_today.month
+        and lunar_birthday.day == lunar_today.day
+    ):
+        matching_names.append(person["name"])
+        print(f"{person['name']} 生日匹配！\n")
 
 # 将匹配的姓名写入 index.html
-with open('index.html', 'w') as file:
-    file.write(', '.join(matching_names))
+with open("index.html", "w", encoding="utf-8") as file:
+    file.write(", ".join(matching_names))
+
+print("写入 index.html 成功！\n")
 
 # 将匹配的姓名写入 happy-birthday.html，使用设计好的 HTML 模板
-with open('happy-birthday.html', 'w') as file:
-    file.write('''
+with open("happy-birthday.html", "w", encoding="utf-8") as file:
+    file.write(
+        """
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,16 +91,18 @@ with open('happy-birthday.html', 'w') as file:
     <div class="container">
         <h1>生日快乐！</h1>
         <p class="birthday-message">今天是特别的一天，祝以下同学生日快乐：</p>
-        <ul class="birthday-names">''')
+        <ul class="birthday-names">"""
+    )
     for name in matching_names:
-        file.write(f'<li>{name}</li>')
-    file.write('''
+        file.write(f"<li>{name}</li>")
+    file.write(
+        """
         </ul>
     </div>
 </body>
-</html>''')
+</html>"""
+    )
 
-# 打印当前日期时间（东八区时间）
-print("当前日期时间：", current_datetime.strftime("%Y-%m-%d %H:%M:%S %Z%z"))
-# 打印当前农历日期
-print("当前农历日期：", current_lunar_month_day)
+print("写入 happy-birthday.html 成功！\n")
+
+print("程序执行完毕！\n")
