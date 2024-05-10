@@ -1,5 +1,5 @@
-- name: name1
-  birthday: "1990-05-15"
+- name: 农历算法测试成功
+  birthday: "2023-05-21"
 
 - name: name2
   birthday: "1985-08-22"
