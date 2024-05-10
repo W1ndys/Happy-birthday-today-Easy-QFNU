@@ -25,6 +25,7 @@ jobs:
         
     - name: Install dependencies
       run: |
+        pip install --upgrade pip
         python -m pip install pyyaml
         python -m pip install pytz
         python -m pip install lunardate
