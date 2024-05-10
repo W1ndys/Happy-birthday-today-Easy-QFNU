@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  get-last-commit:
+  update-birthday-list:
     runs-on: ubuntu-latest
 
     steps:
