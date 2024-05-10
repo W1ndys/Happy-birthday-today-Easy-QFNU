@@ -80,3 +80,4 @@ with open('happy-birthday.html', 'w') as file:
 
 # 打印当前日期时间（东八区时间）
 print("当前日期时间：", current_datetime.strftime("%Y-%m-%d %H:%M:%S %Z%z"))
+
