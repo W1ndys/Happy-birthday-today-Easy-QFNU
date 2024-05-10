@@ -1,5 +1,6 @@
 import yaml
 from datetime import datetime
+import datetime
 
 # 加载 YAML 数据
 with open('birthdays.yml', 'r') as file:
@@ -70,3 +71,6 @@ with open('happy-birthday.html', 'w') as file:
     </div>
 </body>
 </html>''')
+
+current_datetime = datetime.datetime.now()
+print("当前日期时间：", current_datetime)
