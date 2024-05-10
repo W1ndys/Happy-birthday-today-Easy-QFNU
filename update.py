@@ -71,5 +71,5 @@ with open('happy-birthday.html', 'w') as file:
 </body>
 </html>''')
 
-current_datetime = datetime.datetime.now()
+current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 print("当前日期时间：", current_datetime)
