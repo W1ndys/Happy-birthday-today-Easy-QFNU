@@ -15,7 +15,7 @@ current_datetime = datetime.now(timezone)
 
 # 获取当前日期（东八区日期）
 current_lunar_date = LunarDate.fromSolarDate(current_datetime.year, current_datetime.month, current_datetime.day)
-current_lunar_month_day = current_lunar_date.strftime("%m-%d")
+current_lunar_month_day = f"{current_lunar_date.month:02d}-{current_lunar_date.day:02d}"
 
 # 查找生日与当前日期匹配的姓名
 matching_names = [entry['name'] for entry in data if LunarDate.fromSolarDate(current_datetime.year, *map(int, entry['birthday'].split('-')[1:])) == current_lunar_date]
@@ -83,4 +83,4 @@ with open('happy-birthday.html', 'w') as file:
 # 打印当前日期时间（东八区时间）
 print("当前日期时间：", current_datetime.strftime("%Y-%m-%d %H:%M:%S %Z%z"))
 # 打印当前农历日期
-print("当前农历日期：", current_lunar_date.strftime("%Y-%m-%d"))
+print("当前农历日期：", current_lunar_month_day)
