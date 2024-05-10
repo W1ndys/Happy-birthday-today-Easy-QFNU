@@ -1,12 +1,19 @@
 import yaml
 from datetime import datetime
+import pytz
+
+# 设置时区为东八区
+timezone = pytz.timezone('Asia/Shanghai')
 
 # 加载 YAML 数据
 with open('birthdays.yml', 'r') as file:
     data = yaml.safe_load(file)
 
-# 获取当前日期
-current_date = datetime.now().strftime("%m-%d")
+# 获取当前日期时间（东八区时间）
+current_datetime = datetime.now(timezone)
+
+# 获取当前日期（东八区日期）
+current_date = current_datetime.strftime("%m-%d")
 
 # 查找生日与当前日期匹配的姓名
 matching_names = [entry['name'] for entry in data if entry['birthday'][5:] == current_date]
@@ -71,5 +78,5 @@ with open('happy-birthday.html', 'w') as file:
 </body>
 </html>''')
 
-current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-print("当前日期时间：", current_datetime)
+# 打印当前日期时间（东八区时间）
+print("当前日期时间：", current_datetime.strftime("%Y-%m-%d %H:%M:%S %Z%z"))
