@@ -32,7 +32,10 @@ jobs:
       
       
     - name: Get last commit
-      run: python update.py
+      run: | 
+       python update.py
+       python get-date.py
+
 
     - name: Check for changes
       id: check_changes
