@@ -39,14 +39,18 @@ for person in birthdays:
 
 # 将匹配的姓名写入 index.html
 with open("index.html", "w", encoding="utf-8") as file:
-    file.write(", ".join(matching_names))
+    if matching_names:
+        file.write(f"今天是{'，'.join(matching_names)}的生日，祝他们生日快乐！")
+    else:
+        file.write("今天没有人过生日")
 
 print("写入 index.html 成功！\n")
 
 # 将匹配的姓名写入 happy-birthday.html，使用设计好的 HTML 模板
 with open("happy-birthday.html", "w", encoding="utf-8") as file:
-    file.write(
-        """
+    if matching_names:
+        file.write(
+            """
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -92,16 +96,19 @@ with open("happy-birthday.html", "w", encoding="utf-8") as file:
         <h1>生日快乐！</h1>
         <p class="birthday-message">今天是特别的一天，祝以下同学生日快乐：</p>
         <ul class="birthday-names">"""
-    )
-    for name in matching_names:
-        file.write(f"<li>{name}</li>")
-    file.write(
-        """
+        )
+        for name in matching_names:
+            file.write(f"<li>{name}</li>")
+        file.write(
+            """
         </ul>
     </div>
 </body>
 </html>"""
-    )
+        )
+    else:
+        file.write("今天没有人过生日")
+
 
 print("写入 happy-birthday.html 成功！\n")
 
