@@ -109,7 +109,6 @@ with open("index.html", "w", encoding="utf-8") as file:
     else:
         file.write("今天没有人过生日")
 
-
 print("写入 index.html 成功！\n")
 
 print("程序执行完毕！\n")
