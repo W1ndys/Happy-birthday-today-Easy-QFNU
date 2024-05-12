@@ -40,7 +40,7 @@ for person in birthdays:
 # 将匹配的姓名写入 happy-birthdays.html
 with open("happy-birthdays.html", "w", encoding="utf-8") as file:
     if matching_names:
-        file.write(f"今天是{'，'.join(matching_names)}的生日，祝他们生日快乐！")
+        file.write(f"今天是 {'，'.join(matching_names)} 的生日，祝生日快乐！")
     else:
         file.write("今天没有人过生日")
 
