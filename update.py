@@ -37,17 +37,17 @@ for person in birthdays:
         matching_names.append(person["name"])
         print(f"{person['name']} 生日匹配！\n")
 
-# 将匹配的姓名写入 index.html
-with open("index.html", "w", encoding="utf-8") as file:
+# 将匹配的姓名写入 happy-birthday.html
+with open("happy-birthday.html", "w", encoding="utf-8") as file:
     if matching_names:
         file.write(f"今天是{'，'.join(matching_names)}的生日，祝他们生日快乐！")
     else:
         file.write("今天没有人过生日")
 
-print("写入 index.html 成功！\n")
+print("写入 happy-birthday.html 成功！\n")
 
-# 将匹配的姓名写入 happy-birthday.html，使用设计好的 HTML 模板
-with open("happy-birthday.html", "w", encoding="utf-8") as file:
+# 将匹配的姓名写入 index.html，使用设计好的 HTML 模板
+with open("index.html", "w", encoding="utf-8") as file:
     if matching_names:
         file.write(
             """
@@ -110,6 +110,6 @@ with open("happy-birthday.html", "w", encoding="utf-8") as file:
         file.write("今天没有人过生日")
 
 
-print("写入 happy-birthday.html 成功！\n")
+print("写入 index.html 成功！\n")
 
 print("程序执行完毕！\n")
