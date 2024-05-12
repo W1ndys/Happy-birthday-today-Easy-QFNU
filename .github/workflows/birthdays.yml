@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  update-birthday-list:
+  update-birthdays-list:
     runs-on: ubuntu-latest
 
     steps:
