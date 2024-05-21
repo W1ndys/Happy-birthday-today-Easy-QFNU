@@ -93,14 +93,6 @@
 - name: W1ndys
   birthday: "2004-08-14"
 
-- name: |
-    <div style='color: red;'>
-        <span>W</span>
-        <span style='color: orange;'>1</span>
-        <span style='color: yellow;'>n</span>
-        <span style='color: green;'>d</span>
-        <span style='color: blue;'>y</span>
-        <span style='color: purple;'>s</span>
-    </div>
+- name: >
+    <span style='color: red;'>W</span><span style='color: orange;'>1</span><span style='color: yellow;'>n</span><span style='color: green;'>d</span><span style='color: blue;'>y</span><span style='color: purple;'>s</span>
   birthday: "2005-05-21"
-
